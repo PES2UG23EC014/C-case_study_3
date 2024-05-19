@@ -1,27 +1,20 @@
 #ifndef STUDENT_H
 #define STUDENT_H
 
-#define MAX_NAME_LENGTH 100
-#define NUM_SUBJECTS 6
-#define NUM_TESTS 3
+#define MAX_SUBJECTS 5
 
-typedef struct 
-{
-    float marks[NUM_TESTS];
-}subject;
+struct Stud {
+    char name[50];
+    float exam1_marks[MAX_SUBJECTS];
+    float exam2_marks[MAX_SUBJECTS];
+    int num_subs;
+};
 
-typedef struct 
-{
-    char name[MAX_NAME_LENGTH];
-    subject subjects[NUM_SUBJECTS];
-    float sgpa;
-}student;
+extern char *sub_names[];
 
-char calculateGrade(float marks);
-float calculateSGPA(subject subjects[],int num_subjects);
-void inputMarks(const char *subject,float marks[]);
-void loadData(const char *filename, student **students, int *num_students);
-void saveData(const char *filename, student *students, int num_students);
-void searchStudent(student *students, int num_students, const char *name, const char *subject_names[]);
+void readStudData(const char *filename, const char *name, struct Stud *stud);
+void listStudName(const char *filename);
+float calculateAverage(float marks[], int size);
+char gradeAssignment(float average);
 
-#endif
+#endif 

@@ -8,7 +8,7 @@ int main()
     int num_students;
     student *students;
 
-    loadData("students.csv",&students,&num_students);
+    loadData("student_grades.csv",&students,&num_students);
     printf("Loaded %d students.\n",num_students);
 
     if (students==NULL) 
@@ -20,7 +20,7 @@ int main()
 
     const char *subject_names[NUM_SUBJECTS]={"PSWC","Physics","Maths","Electrical","Mechanical","EVS"};
 
-    //input new data
+
     int add_students=1;
     while(add_students) 
     {
@@ -80,7 +80,7 @@ int main()
         printf("\nSGPA for %s: %.2f\n", students[i].name, students[i].sgpa);
     }
 
-saveData("students.csv",students,num_students);             
+saveData("student_grades.csv",students,num_students);             
 
     char choice;
     printf("Do you want to search for a student? (Y/N): ");

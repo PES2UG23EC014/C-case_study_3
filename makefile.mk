@@ -1,18 +1,18 @@
-CC= gcc
-CFLAGS= -Wall -Wextra
+CC = gcc
+CFLAGS = -Wall -Wextra -I.
 
-EXECUTABLE= gradecard
+SRCS = main.c student.c
+OBJS = $(SRCS:.c=.o)
+HEADER = student.h
+EXECUTABLE = grade_card_program
 
 all: $(EXECUTABLE)
 
-$(EXECUTABLE): main.o grades.o
-	$(CC) $(CFLAGS) -o $(EXECUTABLE) main.o grades.o
+$(EXECUTABLE): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $^
 
-main.o: main.c student.h
-	$(CC) $(CFLAGS) -c main.c
-
-grades.o: student.c student.h
-	$(CC) $(CFLAGS) -c student.c
+%.o: %.c $(HEADER)
+	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
-	rm -f $(EXECUTABLE) main.o grades.o
+	del $(EXECUTABLE) $(OBJS)

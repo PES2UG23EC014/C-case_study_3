@@ -1,24 +1,39 @@
-/*main.c: The Main File*/
-
 #include <stdio.h>
-#include <stdlib.h>
 #include "student.h"
 
-int main()
-{
-    int num_students;
-    printf("Enter the number of students: ");
-    scanf("%d", &num_students);
+int main() {
+    char filename[] = "studinfo.csv";
+    char stud_name[50];
+    struct Stud stud;
 
-    struct Student *students = (struct Student *)malloc(num_students * sizeof(struct Student));
+    listStudName(filename);
+    printf("Enter student name: ");
+    scanf("%s", stud_name);
 
-    for (int i = 0; i < num_students; i++) 
-    {
-        printf("\nStudent %d:\n", i + 1);
-        inputStudentData(&students[i]);
-        generateGradeCard(&students[i]);
+    readStudData(filename, stud_name, &stud);
+
+    float avg1 = calculateAverage(stud.exam1_marks, stud.num_subs);
+    float avg2 = calculateAverage(stud.exam2_marks, stud.num_subs);
+
+    char grade1 = gradeAssignment(avg1);
+    char grade2 = gradeAssignment(avg2);
+
+    printf("\n===== Grade Card =====\n");
+    printf("Name: %s\n\n", stud.name);
+
+    printf("Exam 1 Marks:\n\n");
+    for (int i = 0; i < stud.num_subs; i++) {
+        printf("%s: %.2f\n", sub_names[i], stud.exam1_marks[i]);
     }
+    printf("\nExam 1 Average: %.2f\n\n", avg1);
+    printf("Exam 1 Grade: %c\n\n", grade1);
+    printf("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+    printf("Exam 2 Marks:\n\n");
+    for (int i = 0; i < stud.num_subs; i++) {
+        printf("%s: %.2f\n", sub_names[i], stud.exam2_marks[i]);
+    }
+    printf("\nExam 2 Average: %.2f\n", avg2);
+    printf("Exam 2 Grade: %c\n", grade2);
 
-    free(students);
     return 0;
 }

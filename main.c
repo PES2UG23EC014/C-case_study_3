@@ -2,7 +2,7 @@
 #include "student.h"
 
 int main() {
-    char filename[] = "studinfo.csv";
+    char filename[] = "student_grades.csv";
     char stud_name[50];
     struct Stud stud;
 
